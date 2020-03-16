@@ -58,7 +58,9 @@ namespace LifeItMusicApp.Domain
             return artists;
         }
 
-
-
+        internal static List<Album> GetAlbums(Artist artist)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

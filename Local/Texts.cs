@@ -24,6 +24,8 @@ namespace LifeItMusicApp.Local
         public const string ManyArtistsFoundNames = "Here are those artists' ids and names:";
         public const string FoundArtistName = "Name of the Artist which has been found";
         public const string PleaseEnterTheIdOfTheArtist = "Please enter the exact ID of any Artist from the list above to specify: ";
+
+        public const string TheListOfAlbums = "The list of all albums we have found for this Artist:";
         
 
 

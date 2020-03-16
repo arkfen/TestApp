@@ -63,6 +63,55 @@ namespace LifeItMusicApp.Domain
             }
         }
 
+
+        /// <summary>
+        /// Getting the list of Albums from the in-memory chache
+        /// </summary>
+        /// <param name="artist">Artist which albums must be retrieved</param>
+        /// <returns>The list of Albums of the Artist</returns>
+        internal static List<Album> GetAlbums(Artist artist)
+        {
+            if (!IsOn) return null;
+            return _albums.FindAll(a => a.ArtistId == artist.Id);
+        }
+
+
+
+        internal static void UpdateAlbums(List<Album> albums)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        /// <summary>
+        /// Checking if the information about Artist must be updated (for instance the Album lists must be cached)
+        /// </summary>
+        /// <param name="artist">Artist object</param>
+        /// <returns>True if update must be done</returns>
+        internal static bool CheckIfMustUpdate(Artist artist)
+        {
+            if (!IsOn) return false;
+            var result = _artists.Find(a => a.Id == artist.Id);
+            if(result == null)
+            {
+                // If for any reason new Artist was not added to the cache - doing it now!
+                UpdateArtist(artist);
+                return true;
+            }
+            else
+            {
+                // If the Artist was updated more than 24 hours ago or if it is NEW Artist - it must be updated...
+                if (DateTime.Now - result.Update > TimeSpan.FromHours(24) || DateTime.Now - result.Update < TimeSpan.FromSeconds(20))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
         /// <summary>
         /// Loading the albums list
         /// </summary>

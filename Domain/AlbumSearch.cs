@@ -19,8 +19,11 @@ namespace LifeItMusicApp.Domain
             while(_isOn)
             {
                 Artist artist = ArtistSearch.Implement();
-                List<Album> albums = GetAlbums(artist);
-                ShowResults(albums);
+                if(artist != null)
+                {
+                    List<Album> albums = GetAlbums(artist);
+                    ShowResults(albums);
+                }
                 CheckIfUserWantsToGoOn();
             }
         }
@@ -31,7 +34,11 @@ namespace LifeItMusicApp.Domain
         /// <param name="albums">List of Albums</param>
         private static void ShowResults(List<Album> albums)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(Texts.TheListOfAlbums);
+            foreach (Album album in albums)
+            {
+                Console.WriteLine(album.Name + " " + album.ReleaseDate.Year + "   iTunes => " + album.Url);
+            }
         }
 
         /// <summary>
@@ -41,10 +48,22 @@ namespace LifeItMusicApp.Domain
         /// <returns>The list of Albums for speciic Artist</returns>
         private static List<Album> GetAlbums(Artist artist)
         {
-
-            //DateTime.Now - result.Update > TimeSpan.FromHours(24)
-
-            throw new NotImplementedException();
+            List<Album> albums;
+            // Normally try to get the data over Internet
+            try
+            {
+                albums = iTunesAPI.GetAlbums(artist);
+                if (albums.Count > 0 && Cache.CheckIfMustUpdate(artist))
+                {
+                    Cache.UpdateAlbums(albums);
+                }
+            }
+            // If no Internet connection or any other problem getting information over http - try to search in Cache!
+            catch
+            {
+                albums = Cache.GetAlbums(artist);
+            }
+            return albums;
         }
 
 
