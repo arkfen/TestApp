@@ -33,10 +33,15 @@ namespace LifeItMusicApp.Domain
                 string json = File.ReadAllText(_artistsUrl);
                 _artists = (List<Artist>)JsonConvert.DeserializeObject(json, typeof(List<Artist>));
             }
-            catch(Exception e)
+            catch
             {
                 TurnOff();
             }
+        }
+
+        internal static void UpdateArtist(Artist artist)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -67,15 +72,33 @@ namespace LifeItMusicApp.Domain
 
 
         /// <summary>
+        /// Getting Artists list from the in memory cache
+        /// </summary>
+        /// <param name="searchString">Full or partial artist name to search again</param>
+        /// <returns>List of the Artists found in the cache</returns>
+        internal static List<Artist> GetArtists(string searchString)
+        {
+            if (!IsOn) return null;
+            searchString = searchString.ToLower();
+            return _artists.FindAll(a => a.Name.ToLower().Contains(searchString));
+        }
+
+
+
+
+
+
+
+        /// <summary>
         /// Testing loading from json files
         /// </summary>
-        public static void LoadTest()
-        {
-            Console.WriteLine("Load Test Begins");
-            Console.WriteLine(_artists[0].Name);
-            Console.WriteLine(_albums[0].Name);
-            Console.WriteLine("Load Test Ends");
-        }
+        //public static void LoadTest()
+        //{
+        //    Console.WriteLine("Load Test Begins");
+        //    Console.WriteLine(_artists[0].Name);
+        //    Console.WriteLine(_albums[0].Name);
+        //    Console.WriteLine("Load Test Ends");
+        //}
 
 
     }

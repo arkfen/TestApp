@@ -8,9 +8,10 @@ namespace LifeItMusicApp
         static void Main(string[] args)
         {
             // Cache Load Testing
-            Cache.LoadTest();
+            //Cache.LoadTest();
 
 
+            AlbumSearch.Start();
 
 
         }
