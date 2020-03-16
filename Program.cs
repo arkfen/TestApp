@@ -1,4 +1,5 @@
 ﻿using System;
+using LifeItMusicApp.Domain;
 
 namespace LifeItMusicApp
 {
@@ -6,7 +7,8 @@ namespace LifeItMusicApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            Cache.Test();
         }
     }
 }
