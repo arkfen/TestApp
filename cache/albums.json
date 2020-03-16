@@ -1,7 +1,8 @@
 [
   {
-    "Id": 1,
-    "Name": "Jars of Clay",
-    "Update": "1995-10-24T07:00:00Z"
+    "Id": 200,
+    "Name": "Jars of Clay Album",
+    "ArtistId": 1,
+    "ReleaseDate": "1995-10-24T07:00:00Z"
   }
 ]

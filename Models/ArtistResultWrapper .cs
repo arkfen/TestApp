@@ -4,6 +4,9 @@ using System.Text;
 
 namespace LifeItMusicApp.Models
 {
+    /// <summary>
+    /// iTunes API Search result wraper for Artist type
+    /// </summary>
     class ArtistResultWrapper
     {
         public string wrapperType {get; set;}

@@ -18,10 +18,14 @@ namespace LifeItMusicApp.Domain
 
         static Cache()
         {
+            // If cahce is on loading all information from the persistent cache (json files)
             if (IsOn) LoadArtists();
             if (IsOn) LoadAlbums();
         }
 
+        /// <summary>
+        /// Loading the artists list
+        /// </summary>
         private static void LoadArtists()
         {
             try
@@ -35,6 +39,9 @@ namespace LifeItMusicApp.Domain
             }
         }
 
+        /// <summary>
+        /// Loading the albums list
+        /// </summary>
         private static void LoadAlbums()
         {
             try
@@ -49,6 +56,9 @@ namespace LifeItMusicApp.Domain
             
         }
 
+        /// <summary>
+        /// Turing the cache off
+        /// </summary>
         private static void TurnOff()
         {
             Console.WriteLine(Texts.CacheTurningOff);
@@ -56,12 +66,17 @@ namespace LifeItMusicApp.Domain
         }
 
 
-        // Test
-        public static void Test()
+        /// <summary>
+        /// Testing loading from json files
+        /// </summary>
+        public static void LoadTest()
         {
+            Console.WriteLine("Load Test Begins");
             Console.WriteLine(_artists[0].Name);
-
-            return;
+            Console.WriteLine(_albums[0].Name);
+            Console.WriteLine("Load Test Ends");
         }
+
+
     }
 }

@@ -7,8 +7,12 @@ namespace LifeItMusicApp
     {
         static void Main(string[] args)
         {
+            // Cache Load Testing
+            Cache.LoadTest();
 
-            Cache.Test();
+
+
+
         }
     }
 }
