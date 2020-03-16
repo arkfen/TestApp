@@ -20,9 +20,11 @@ namespace LifeItMusicApp.Local
         public const string SomethingWentWrongTryAgainLater = "Oops... Something went wrong... Please try again later...";
 
         public const string NothingFoundTryAgain = "Sorry, nothing has been found... Please try again.";
-        public const string MoreThanOneArtistFoundBeMoreSpecific = "More than one artist has been found, please try to be more specific...";
-        public const string ManyArtistsFoundNames = "Here are the those artists' names";
+        public const string MoreThanOneArtistFoundBeMoreSpecific = "More than one artist has been found, please be more specific...";
+        public const string ManyArtistsFoundNames = "Here are those artists' ids and names:";
         public const string FoundArtistName = "Name of the Artist which has been found";
+        public const string PleaseEnterTheIdOfTheArtist = "Please enter the exact ID of any Artist from the list above to specify: ";
+        
 
 
         //public const string xxxxx = "";

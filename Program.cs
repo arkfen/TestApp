@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using LifeItMusicApp.Domain;
 
 namespace LifeItMusicApp
@@ -7,6 +8,8 @@ namespace LifeItMusicApp
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
+
             // Cache Load Testing
             //Cache.LoadTest();
 

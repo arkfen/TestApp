@@ -18,19 +18,38 @@ namespace LifeItMusicApp.Domain
         {
             Artist artist = null;
             List<Artist> artists;
-            do
+            string searchString = GetSearchString();
+            artists = GetResults(searchString);
+            ShowResults(artists);
+            if(artists != null && artists.Count > 1)
             {
-                string searchString = GetSearchString();
-                artists = GetResults(searchString);
-                ShowResults(artists);
+                artist = ChooseOneArtist(artists);
             }
-            while (artists != null && artists.Count != 1);
             if (artists != null && artists.Count == 1)
             {
                 artist = artists.First();
-                
+
             }
             return artist;
+        }
+
+        private static Artist ChooseOneArtist(List<Artist> artists)
+        {
+            Console.Write(Texts.PleaseEnterTheIdOfTheArtist);
+            try
+            {
+                int id = Convert.ToInt32(Console.ReadLine());
+                Artist artist = artists.Find(a => a.Id == id);
+                if(artist == null)
+                {
+                    Console.WriteLine(Texts.NothingFoundTryAgain);
+                }
+                return artist;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
 
@@ -52,10 +71,10 @@ namespace LifeItMusicApp.Domain
             if(artists.Count > 1)
             {
                 Console.WriteLine(Texts.MoreThanOneArtistFoundBeMoreSpecific);
-                Console.Write(Texts.ManyArtistsFoundNames + ": ");
+                Console.WriteLine(Texts.ManyArtistsFoundNames);
                 foreach(Artist artist in artists)
                 {
-                    Console.Write("'" + artist.Name + "'  |  ");
+                    Console.WriteLine("Id: " + artist.Id + "  |  Name: " + artist.Name);
                 }
             }
             if (artists.Count == 1)
