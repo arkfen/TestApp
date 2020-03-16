@@ -77,7 +77,7 @@ namespace LifeItMusicApp.Domain
             try
             {
                 artists = iTunesAPI.GetArtists(searchString);
-                if(artists.Count ==1 )
+                if(artists.Count == 1)
                 {
                     Cache.UpdateArtist(artists.First());
                 }

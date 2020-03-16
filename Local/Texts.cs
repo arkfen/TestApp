@@ -15,7 +15,7 @@ namespace LifeItMusicApp.Local
         public const string WeDidNotUnderstandButAssumeYesByDefault = "We did not understand you, but assuming you have said 'yes'";
 
         public const string SearchingArtistsAlbums = "Searching for the Artist's albums...";
-        public const string PleaseEnterFullOrPartialArtistName = "Please enter the Artist name (partial of full):";
+        public const string PleaseEnterFullOrPartialArtistName = "Please enter the Artist name (partial of full): ";
 
         public const string SomethingWentWrongTryAgainLater = "Oops... Something went wrong... Please try again later...";
 
