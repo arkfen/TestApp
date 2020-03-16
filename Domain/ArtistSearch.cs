@@ -49,6 +49,10 @@ namespace LifeItMusicApp.Domain
                 {
                     Console.WriteLine(Texts.NothingFoundTryAgain);
                 }
+                else
+                {
+                    Console.WriteLine(Texts.FoundArtistName + ": " + artists.First().Name);
+                }
                 return artist;
             }
             catch
