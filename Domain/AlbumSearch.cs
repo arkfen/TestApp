@@ -34,6 +34,7 @@ namespace LifeItMusicApp.Domain
         /// <param name="albums">List of Albums</param>
         private static void ShowResults(List<Album> albums)
         {
+            Console.WriteLine(string.Empty);
             Console.WriteLine(Texts.TheListOfAlbums);
             foreach (Album album in albums)
             {
@@ -72,6 +73,7 @@ namespace LifeItMusicApp.Domain
         /// </summary>
         private static void CheckIfUserWantsToGoOn()
         {
+            Console.WriteLine(string.Empty);
             Console.WriteLine(Texts.DoYouWantToSearchAlbumsAgain);
             Console.WriteLine(Texts.YesOrNoQuestion);
             string answer = Console.ReadLine();
@@ -86,6 +88,7 @@ namespace LifeItMusicApp.Domain
                     Console.WriteLine(Texts.WeDidNotUnderstandButAssumeYesByDefault);
                     break;
             }
+            Console.WriteLine(string.Empty);
         }
 
 

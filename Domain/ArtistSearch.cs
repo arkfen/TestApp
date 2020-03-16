@@ -40,18 +40,20 @@ namespace LifeItMusicApp.Domain
         /// <returns>Artist user chooses</returns>
         private static Artist ChooseOneArtist(List<Artist> artists)
         {
+            Console.WriteLine(string.Empty);
             Console.Write(Texts.PleaseEnterTheIdOfTheArtist);
             try
             {
                 int id = Convert.ToInt32(Console.ReadLine());
                 Artist artist = artists.Find(a => a.Id == id);
-                if(artist == null)
+                Console.WriteLine(string.Empty);
+                if (artist == null)
                 {
                     Console.WriteLine(Texts.NothingFoundTryAgain);
                 }
                 else
                 {
-                    Console.WriteLine(Texts.FoundArtistName + ": " + artists.First().Name);
+                    Console.WriteLine(Texts.FoundArtistName + ": " + artist.Name);
                 }
                 return artist;
             }
@@ -69,6 +71,7 @@ namespace LifeItMusicApp.Domain
         /// <param name="artists">Artists list to analyse and use</param>
         private static void ShowResults(List<Artist> artists)
         {
+            Console.WriteLine(string.Empty);
             if(artists == null)
             {
                 Console.WriteLine(Texts.SomethingWentWrongTryAgainLater);
@@ -79,8 +82,8 @@ namespace LifeItMusicApp.Domain
             }
             if(artists.Count > 1)
             {
-                Console.WriteLine(Texts.MoreThanOneArtistFoundBeMoreSpecific);
-                Console.WriteLine(Texts.ManyArtistsFoundNames);
+                Console.WriteLine(Texts.MoreThanOneArtistFoundBeMoreSpecific + "\n");
+                Console.WriteLine(Texts.ManyArtistsFoundNames + "\n");
                 foreach(Artist artist in artists)
                 {
                     Console.WriteLine("Id: " + artist.Id + "  |  Name: " + artist.Name);
@@ -126,7 +129,7 @@ namespace LifeItMusicApp.Domain
         /// <returns>Search string user entered</returns>
         private static string GetSearchString()
         {
-            Console.WriteLine(Texts.SearchingArtistsAlbums);
+            Console.WriteLine(Texts.SearchingArtistsAlbums + "\n");
             Console.Write(Texts.PleaseEnterFullOrPartialArtistName);
             string searchString = Console.ReadLine();
             return searchString;
