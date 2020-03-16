@@ -10,8 +10,8 @@ namespace LifeItMusicApp.Domain
 {
     static class Cache
     {
-        private const string _artistsUrl = @"..\..\..\cache\artists.json";
-        private const string _albumsUrl = @"..\..\..\cache\albums.json";
+        private const string _artistsFilePath = @"..\..\..\cache\artists.json";
+        private const string _albumsFilePath = @"..\..\..\cache\albums.json";
         private static List<Artist> _artists;
         private static List<Album> _albums;
         public static bool IsOn { get; private set; } = true;
@@ -30,8 +30,9 @@ namespace LifeItMusicApp.Domain
         {
             try
             {
-                string json = File.ReadAllText(_artistsUrl);
+                string json = File.ReadAllText(_artistsFilePath);
                 _artists = (List<Artist>)JsonConvert.DeserializeObject(json, typeof(List<Artist>));
+                if (_artists == null) _artists = new List<Artist>();
             }
             catch
             {
@@ -39,9 +40,27 @@ namespace LifeItMusicApp.Domain
             }
         }
 
+        /// <summary>
+        /// Adding Artist to in-memory and persistent cache if Artists is absent there
+        /// </summary>
+        /// <param name="artist">Artist object to add to the cache</param>
         internal static void UpdateArtist(Artist artist)
         {
-            throw new NotImplementedException();
+            if (!IsOn) return;
+            var result = _artists.Find(a => a.Id == artist.Id);
+            if(result == null)
+            {
+                _artists.Add(artist);
+                try
+                {
+                    string json = JsonConvert.SerializeObject(_artists);
+                    File.WriteAllText(_artistsFilePath, json);
+                }
+                catch
+                {
+                    TurnOff();
+                }
+            }
         }
 
         /// <summary>
@@ -49,10 +68,12 @@ namespace LifeItMusicApp.Domain
         /// </summary>
         private static void LoadAlbums()
         {
+            if (!IsOn) return;
             try
             {
-                string json = File.ReadAllText(_albumsUrl);
+                string json = File.ReadAllText(_albumsFilePath);
                 _albums = (List<Album>)JsonConvert.DeserializeObject(json, typeof(List<Album>));
+                if (_albums == null) _albums = new List<Album>();
             }
             catch
             {

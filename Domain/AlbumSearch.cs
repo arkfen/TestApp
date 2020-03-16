@@ -41,6 +41,9 @@ namespace LifeItMusicApp.Domain
         /// <returns>The list of Albums for speciic Artist</returns>
         private static List<Album> GetAlbums(Artist artist)
         {
+
+            //DateTime.Now - result.Update > TimeSpan.FromHours(24)
+
             throw new NotImplementedException();
         }
 

@@ -33,6 +33,11 @@ namespace LifeItMusicApp.Domain
             return artist;
         }
 
+        /// <summary>
+        /// Choosing only one Artist from the multiple artists result list
+        /// </summary>
+        /// <param name="artists">Artists list</param>
+        /// <returns>Artist user chooses</returns>
         private static Artist ChooseOneArtist(List<Artist> artists)
         {
             Console.Write(Texts.PleaseEnterTheIdOfTheArtist);
