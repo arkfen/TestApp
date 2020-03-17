@@ -23,6 +23,7 @@ namespace LifeItMusicApp.Domain
             if (IsOn) LoadAlbums();
         }
 
+
         /// <summary>
         /// Loading the artists list
         /// </summary>
@@ -79,7 +80,10 @@ namespace LifeItMusicApp.Domain
 
         internal static void UpdateAlbums(List<Album> albums)
         {
-            throw new NotImplementedException();
+            if (!IsOn) return;
+            bool isPersistentMustBeUpdated = false;
+            foreach()
+
         }
 
 

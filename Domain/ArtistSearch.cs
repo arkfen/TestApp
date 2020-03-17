@@ -10,11 +10,13 @@ namespace LifeItMusicApp.Domain
 {
     class ArtistSearch
     {
+        private static bool _isDataFromAPI { get; set; } = false;
+
         /// <summary>
         /// Implementing the search for the Artist using user search string input
         /// </summary>
         /// <returns>The Artist object or null if nothing has been found</returns>
-        internal static Artist Implement()
+        public static Artist Implement()
         {
             Artist artist = null;
             List<Artist> artists;
@@ -31,6 +33,18 @@ namespace LifeItMusicApp.Domain
 
             }
             return artist;
+        }
+
+
+        /// <summary>
+        /// Updating Artist in the cache if needed
+        /// </summary>
+        public static void UpdateCache(Artist artist)
+        {
+            if(_isDataFromAPI)
+            {
+                Cache.UpdateArtist(artist);
+            }
         }
 
         /// <summary>
@@ -108,14 +122,16 @@ namespace LifeItMusicApp.Domain
             try
             {
                 artists = iTunesAPI.GetArtists(searchString);
-                if(artists.Count == 1)
-                {
-                    Cache.UpdateArtist(artists.First());
-                }
+                _isDataFromAPI = true;
+                //if(artists.Count == 1)
+                //{
+                //    Cache.UpdateArtist(artists.First());
+                //}
             }
             // If no Internet connection or any other problem getting information over http - try to search in Cache!
             catch
             {
+                _isDataFromAPI = false;
                 artists = Cache.GetArtists(searchString);
             }
             return artists;

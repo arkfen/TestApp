@@ -9,6 +9,7 @@ namespace LifeItMusicApp.Domain
     class AlbumSearch
     {
         private static bool _isOn { get; set; } = false;
+        private static bool _isDataFromAPI { get; set; } = false;
 
         /// <summary>
         /// The loop method for starting and continuing the album search UX routing and getting data accordignly...
@@ -23,8 +24,24 @@ namespace LifeItMusicApp.Domain
                 {
                     List<Album> albums = GetAlbums(artist);
                     ShowResults(albums);
+                    UpdateCache(artist, albums);
                 }
                 CheckIfUserWantsToGoOn();
+            }
+        }
+
+        /// <summary>
+        /// Updating cache only if the data we have was retrived from API and if it is generally needs to be updated...
+        /// </summary>
+        /// <param name="artist">Artist object</param>
+        /// <param name="albums">List of artist's albums</param>
+        private static void UpdateCache(Artist artist, List<Album> albums)
+        {
+            ArtistSearch.UpdateCache(artist);
+            
+            if (_isDataFromAPI && albums.Count > 0 && Cache.CheckIfMustUpdate(artist))
+            {
+                Cache.UpdateAlbums(albums);
             }
         }
 
@@ -54,14 +71,12 @@ namespace LifeItMusicApp.Domain
             try
             {
                 albums = iTunesAPI.GetAlbums(artist);
-                if (albums.Count > 0 && Cache.CheckIfMustUpdate(artist))
-                {
-                    Cache.UpdateAlbums(albums);
-                }
+                _isAlbumFromAPI = true;
             }
             // If no Internet connection or any other problem getting information over http - try to search in Cache!
             catch
             {
+                _isAlbumFromAPI = false;
                 albums = Cache.GetAlbums(artist);
             }
             return albums;
