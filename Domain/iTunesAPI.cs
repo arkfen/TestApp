@@ -97,7 +97,7 @@ namespace LifeItMusicApp.Domain
                         albums.Add(new Album
                         {
                             Id = result.collectionId,
-                            Name = result.artistName,
+                            Name = result.collectionName,
                             ArtistId = result.artistId,
                             ReleaseDate = result.releaseDate,
                             Url = result.collectionViewUrl
