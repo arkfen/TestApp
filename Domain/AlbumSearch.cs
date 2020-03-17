@@ -52,11 +52,12 @@ namespace LifeItMusicApp.Domain
         private static void ShowResults(List<Album> albums)
         {
             Console.WriteLine(string.Empty);
-            Console.WriteLine(Texts.TheListOfAlbums);
+            Console.WriteLine(Texts.TheListOfAlbums + "\n\n");
             foreach (Album album in albums)
             {
-                Console.WriteLine(album.Name + " " + album.ReleaseDate.Year + "   iTunes => " + album.Url);
+                Console.WriteLine("  * " + album.Name + "  (" + album.ReleaseDate.Year + ")    | Discover on iTunes => " + album.Url + "\n");
             }
+            Console.WriteLine("\n" + Texts.TotalNumberOfAlbumsFound + albums.Count + "\n");
         }
 
         /// <summary>
@@ -71,12 +72,12 @@ namespace LifeItMusicApp.Domain
             try
             {
                 albums = iTunesAPI.GetAlbums(artist);
-                _isAlbumFromAPI = true;
+                _isDataFromAPI = true;
             }
             // If no Internet connection or any other problem getting information over http - try to search in Cache!
             catch
             {
-                _isAlbumFromAPI = false;
+                _isDataFromAPI = false;
                 albums = Cache.GetAlbums(artist);
             }
             return albums;
