@@ -77,13 +77,35 @@ namespace LifeItMusicApp.Domain
         }
 
 
-
+        /// <summary>
+        /// Adding albums to the in-memeory and persistent cache if information is absent
+        /// </summary>
+        /// <param name="albums">List of albums to be added to the cache</param>
         internal static void UpdateAlbums(List<Album> albums)
         {
             if (!IsOn) return;
             bool isPersistentMustBeUpdated = false;
-            foreach()
-
+            foreach(Album album in albums)
+            {
+                var result = _albums.Find(a => a.Id == album.Id);
+                if(result == null)
+                {
+                    isPersistentMustBeUpdated = true;
+                    _albums.Add(album);
+                }
+            }
+            if(isPersistentMustBeUpdated)
+            {
+                try
+                {
+                    string json = JsonConvert.SerializeObject(_albums);
+                    File.WriteAllText(_albumsFilePath, json);
+                }
+                catch
+                {
+                    TurnOff();
+                }
+            }
         }
 
 
